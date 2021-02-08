@@ -33,7 +33,7 @@ To play, grab a friends and click [this link](http://www.mywebsite.net) to visit
 
 
 ###### DESIGN 
-![Page One](./imgs/readMe-imgs/pg1.png)
+![Page One](imgs/readMe-imgs/pg1.png)
 ![Page Two](./imgs/readMe-imgs/pg2.png?raw=true)
 ![Page Three](./imgs/readMe-imgs/pg3.png?raw=true)
 ![Page Four](./imgs/readMe-imgs/pg4.png?raw=true)
@@ -48,4 +48,5 @@ To play, grab a friends and click [this link](http://www.mywebsite.net) to visit
 ### ***Credits***
 
 Inspiration: [drawzie](https://www.drawize.com/)
+***
 API: [Merriam-Webster](https://dictionaryapi.com/)
