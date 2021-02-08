@@ -1,12 +1,66 @@
-body {
+.home {
   background-color: #87bfff;
   font-family: 'Raleway', sans-serif;
 }
 
-h1 {
+.home-title {
   color: white;
+  font-size: 5.2em;
+  margin: 0;
 }
 
 .drk-blue {
   color: #666a86;
+  font-size: 4em;
+  margin: 0;
+  width: 100%;
+}
+
+.rules {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+}
+
+.left {
+  grid-column: 1 / 2;
+  justify-self: center;
+}
+.right {
+  grid-column: 3 / 3;
+  justify-self: center;
+  align-self: end;
+  margin: 0 160px 40px 0;
+  height: 100px;
+  width: 200px;
+  border-radius: 100%;
+  color: #666a86;
+  font-size: x-large;
+  background-color: #d3f6db;
+}
+
+p {
+  font-style: italic;
+  text-align: center;
+}
+
+/* .lists-rules {
+  text-align: left;
+} */
+
+.draw {
+  background-color: #666a86;
+  font-family: 'Raleway', sans-serif;
+}
+
+.player {
+  color: white;
+  font-size: 5.2em;
+  margin: 0;
+}
+
+.instructions {
+  color: #87bfff;
+  font-size: 4em;
+  margin: 0;
+  width: 100%;
 }
