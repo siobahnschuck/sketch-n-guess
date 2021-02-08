@@ -64,3 +64,39 @@ p {
   margin: 0;
   width: 100%;
 }
+
+.tools {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 20vh;
+}
+
+/* .sketch {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  margin: 0;
+  /* width: 100%;
+  height: 90vh; */
+/* margin-top: 10vh; */
+/* } */
+
+canvas {
+  background-color: #87bfff;
+  grid-column: 2 / 3;
+  justify-self: stretch;
+}
+
+.check {
+  justify-self: center;
+  background-image: url(./imgs/ButtonCheck-01.svg);
+  background-size: auto;
+  background-repeat: no-repeat;
+}
+
+#color {
+  text-align: center;
+  font-size: 40px;
+}
+
+.counter {
+}

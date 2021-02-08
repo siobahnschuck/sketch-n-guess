@@ -1,41 +1,62 @@
-const { default: Picker } = require('vanilla-picker')
+/// script for draw and guess html
 
-console.log('hello world')
+// window.addEventListener('load', countDown)
 
-window.addEventListener('DOMContentLoaded', (event) => {
-  console.log('DOM fully loaded and parsed')
-})
-
+//global variables
+const checkBtn = document.querySelector('.check')
+const colorContainer = document.querySelector('#color')
 const canvas = document.getElementById('paint')
-const instructions = document.querySelector('.instructions')
-const pickerContainer = document.querySelector('#color')
-const picker = new Picker(pickerContainer)
+const counter = document.querySelectorAll('.counter')
+const picker = new Picker(colorContainer)
+const sketchContainer = document.querySelector('.container')
 
-let ctx = canvas.getContext('2d')
-console.log(ctx)
-let pos = { x: 0, y: 0 }
+let painting = false
+const ctx = canvas.getContext('2d')
+// sketchContainer.style.height = '100%'
+// let sketchStyle = window.getComputedStyle(sketchContainer)
+// canvas.height = parseFloat(
+//   sketchStyle.getPropertyValue('height').split('px')[0]
+// )
+// canvas.width = parseFloat(sketchStyle.getPropertyValue('width').split('px')[0])
+// console.log(sketchStyle.getPropertyValue('width'))
 
-const setPos = (e) => {
-  pos.x = e.clientX
-  pos.y = e.clientY
+//functions
+canvas.height = window.innerHeight
+canvas.width = window.innerWidth
+
+let timeLeft = 30
+const countDown = () => {
+  if (timeLeft === 0) {
+    //function to move canvas to guess.html
+  } else {
+    counter.innerHTML = `:${timeLeft}`
+    timeLeft--
+  }
 }
 
-picker.onChange = function (color) {
-  pickerContainer.style.background = color.rgbaString
+const startPos = (e) => {
+  painting = true
+  draw(e)
+}
+
+const endPos = () => {
+  painting = false
+  ctx.beginPath()
 }
 
 const draw = (e) => {
-  ctx.beginPath()
-  ctx.lineWidth = 5
+  if (!painting) return
+  ctx.lineWidth = 10
   ctx.lineCap = 'round'
-  // ctx.strokeStyle =
 
-  ctx.moveTo(pos.x, pos.y)
-  ctx.lineTo(pos.x, pos.y)
-
+  ctx.lineTo(e.clientX, e.clientY)
   ctx.stroke()
+  ctx.beginPath()
+  ctx.moveTo(e.clientX, e.clientY)
 }
 
-canvas.addEventListener('click', draw)
-canvas.addEventListener('mousedown', setPos)
-canvas.addEventListener('mouseenter', setPos)
+//event listeners
+canvas.addEventListener('mousedown', startPos)
+canvas.addEventListener('mouseup', endPos)
+canvas.addEventListener('mousemove', draw)
+canvas.addEventListener('click', countDown)
