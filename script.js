@@ -3,7 +3,7 @@
 // window.addEventListener('load', countDown)
 
 //global variables
-const checkBtn = document.querySelector('.check')
+const doneBtn = document.querySelector('.check')
 const colorContainer = document.querySelector('#color')
 const picker = new Picker(colorContainer)
 const canvas = document.getElementById('paint')
@@ -16,7 +16,7 @@ const ctx = canvas.getContext('2d')
 canvas.height = window.innerHeight
 canvas.width = window.innerWidth
 
-const timeLimit = 15
+const timeLimit = 10
 let timePassed = 0
 let timeLeft = timeLimit
 let timeInterval = null
@@ -33,30 +33,25 @@ const formatTime = (time) => {
   return `${mins}:${secs}`
 }
 
-timer.innerHTML = `<svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-<g class="base-timer__circle">
-<circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
-</g>
-</svg>
-<span id="base-timer-label" class="base-timer__label">
+timer.innerHTML = `<span id="base-timer-label" class="base-timer__label">
 ${formatTime(timeLeft)}
 </span>`
 
 const startTimer = () => {
-  if (timePassed === timeLimit) {
-    startTimer()
-  } else {
-    timerInterval = setInterval(() => {
-      timePassed = timePassed += 1
-      timeLeft = timeLimit - timePassed
-      document.getElementById('base-timer-label').innerHTML = formatTime(
-        timeLeft
-      )
-    }, 1000)
-  }
+  // clearInterval(timerInterval)
+  // location.href = 'guess.html'
+  timerInterval = setInterval(() => {
+    timePassed = timePassed += 1
+    timeLeft = timeLimit - timePassed
+    document.getElementById('base-timer-label').innerHTML = formatTime(timeLeft)
+  }, 1000)
 }
-startTimer()
 
+startTimer()
+console.log(timeLeft)
+console.log(timeLimit)
+console.log(timeInterval)
+console.log(timePassed)
 //canvas
 
 const startPos = (e) => {
@@ -89,4 +84,8 @@ const draw = (e) => {
 canvas.addEventListener('mousedown', startPos)
 canvas.addEventListener('mouseup', endPos)
 canvas.addEventListener('mousemove', draw)
+
+doneBtn.addEventListener('click', () => {
+  location.href = 'guess.html'
+})
 // window.addEventListener('load', startTimer)

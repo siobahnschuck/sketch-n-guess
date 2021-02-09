@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .home {
   background-color: #87bfff;
   font-family: 'Raleway', sans-serif;
@@ -43,9 +47,7 @@ p {
   text-align: center;
 }
 
-/* .lists-rules {
-  text-align: left;
-} */
+/* draw.html */
 
 .draw {
   background-color: #666a86;
@@ -68,22 +70,13 @@ p {
 .tools {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   height: 20vh;
 }
 
-/* .sketch {
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  margin: 0;
-  /* width: 100%;
-  height: 90vh; */
-/* margin-top: 10vh; */
-/* } */
-
 canvas {
+  position: relative;
   background-color: #87bfff;
-  grid-column: 2 / 3;
-  justify-self: stretch;
 }
 
 .check {
@@ -97,8 +90,11 @@ canvas {
 }
 
 #color {
+  align-self: end;
+  height: 60px;
   text-align: center;
   font-size: 40px;
+  border-radius: 100%;
 }
 
 .base-timer {
@@ -107,7 +103,7 @@ canvas {
   width: 100px;
 }
 
-.base-timer__circle {
+/* .base-timer__circle {
   fill: none;
   stroke: none;
 }
@@ -115,15 +111,35 @@ canvas {
 .base-timer__path-elapsed {
   stroke-width: 7px;
   stroke: grey;
-}
+} */
 
 #base-timer-label {
-  position: absolute;
+  position: relative;
   width: 100px;
   height: 100px;
   top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 40px;
+}
+
+/* guess.html */
+
+.guess {
+  background-color: #87bfff;
+  font-family: 'Raleway', sans-serif;
+}
+
+.player {
+  color: white;
+  font-size: 5.2em;
+  margin: 0;
+}
+
+.instructionsG {
+  color: #666a86;
+  font-size: 4em;
+  margin: 0;
+  width: 100%;
 }
