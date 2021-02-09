@@ -22,21 +22,54 @@ html {
 
 .rules {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 .left {
   grid-column: 1 / 2;
+  grid-row: 1 / span2;
   justify-self: center;
 }
 .right {
-  grid-column: 3 / 3;
-  justify-self: center;
-  align-self: end;
+  grid-column: 2 / 2;
+  align-items: top;
+  justify-content: start;
   margin: 0 160px 40px 0;
+  text-align: center;
+}
+
+.title {
+  justify-self: start;
+  padding: 20px;
+}
+.rule-list {
+  align-self: start;
+  padding: 80px;
+}
+#draw-first {
+  grid-row: 2 /3;
+  order: 1;
+}
+.draw-input {
+  grid-row: 2/3;
+  height: 10px;
+  order: 2;
+  margin-top: 40px;
+}
+
+#guess-first {
+  grid-row: 3/4;
+}
+
+.guess-input {
+  grid-row: 3/4;
+  height: 10px;
+  margin-top: 40px;
 }
 
 #play-btn {
+  grid-row: 4/5;
   height: 100px;
   width: 200px;
   border-radius: 100%;
@@ -116,6 +149,12 @@ p {
   font-size: 80px;
   height: 100px;
   width: 100px;
+}
+
+.clear {
+  background-color: #eb9486;
+  font-style: italic;
+  border: none;
 }
 
 /* .base-timer__circle {

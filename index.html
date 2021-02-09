@@ -15,7 +15,7 @@
   </header>
   <span class="rules">
   <h2 class="left title"><strong>HOW TO PLAY</strong></h2>
-  <p class="left"> <strong>Hello and WELCOME!</strong> 
+  <p class="left rule-list"> <strong>Hello and WELCOME!</strong> 
     <br/> 
     If you would like to play Sketch-N-Guess there are a few things to go over before you can begin.
     <br/>
@@ -32,8 +32,13 @@
     <br/>
     <br/>
     HAVE FUN! </p>
-    <button class="right play-btn">PLAY</button>
+    <p class="right" id="draw-first">Who wants to draw first? Enter your name below:</p>
+    <input class="right draw-input" id="player1" type="text">
+    <p class="right" id='guess-first'>Who wants to guess first? Enter your name below:</p>
+    <input class="right guess-input" id="player2" type="text">
+    <button class="right" id="play-btn">PLAY</button>
   </span>
-  <script src="script.js"></script>
+  <script src="globals.js"></script>
+  <script src="./main.js"></script>
 </body>
 </html>
