@@ -1,13 +1,29 @@
-const doneBtn = document.querySelector('.check')
-const againBtn = document.querySelector('.again')
+const playBtn = document.getElementById('play-btn')
+const submitBtn = document.querySelector('.submit-btn')
+const nameForm = document.querySelector('#whats-my-name')
+const playerOneInput = document.getElementById('player-input-one')
+const playerTwoInput = document.getElementById('player-input-two')
+const player = document.querySelector('.player')
 
-doneBtn.addEventListener('click', () => {
-  console.log('click')
-  location.href = 'scores.html'
-  //if player 1 draws add a point to player 2
-  //else add a point to player 1
-})
+// const playerOne = localStorage.getItem(playerOneInput.value)
+// const playerTwo = localStorage.getItem(playerTwoInput.value)
 
-againBtn.addEventListener('click', () => {
-  location.href = 'draw.html'
-})
+if (playBtn) {
+  playBtn.addEventListener('click', () => {
+    console.log('click')
+    location.href = 'draw.html'
+  })
+}
+
+nameForm.addEventListener(
+  'submit',
+  (e) => {
+    e.preventDefault()
+    if (playerOneInput < 1 || playerTwoInput < 1) return
+    // scoreOne.innerHTML = playerOneInput.value
+    // scoreTwo.innerHTML = playerTwoInput.value
+    localStorage.setItem('playerOne', playerOneInput.value)
+    localStorage.setItem('playerTwo', playerTwoInput.value)
+  },
+  false
+)

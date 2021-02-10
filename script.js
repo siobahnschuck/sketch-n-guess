@@ -1,25 +1,17 @@
 /// script for draw and guess html
-
 //global variables
 const doneBtn = document.querySelector('.check')
-const againBtn = document.querySelector('.again')
-const body = document.querySelector('.draw')
 
+const body = document.querySelector('.draw')
+const clear = document.querySelector('.clear')
 const canvas = document.getElementById('paint')
-let painting = false
+const ctx = canvas.getContext('2d')
 const colorContainer = document.querySelector('#color')
 const picker = new Picker(colorContainer)
 
-const player = document.querySelector('.player')
 const instructions = document.querySelector('.instructions')
 
 const dictionary = document.querySelector('.instructions')
-const urlElem =
-  'https://www.dictionaryapi.com/api/v3/references/sd2/json/school?key='
-const apiKeyElem = '86e897cb-447f-4098-8a85-908928a1103e'
-const urlInter =
-  'https://www.dictionaryapi.com/api/v3/references/sd3/json/dragon?key='
-const apiKeyInter = 'b987e98c-94c8-4ed2-95e3-e03337c51913'
 
 const timer = document.querySelector('.base-timer')
 let counter = 0
@@ -27,6 +19,21 @@ let counterTwo = 0
 let timeLeft = 10
 let guessLeft = 20
 //functions
+//player names
+
+let playerOne = localStorage.getItem('playerOne')
+let playerTwo = localStorage.getItem('playerTwo')
+
+let scoreOne = '0'
+let scoreTwo = '0'
+
+localStorage.setItem('playerOneScore', scoreOne)
+localStorage.setItem('playerTwoScore', scoreTwo)
+
+localStorage.setItem('curr', playerOne)
+
+player.innerHTML = playerOne
+// window.addEventListener('storage', playerNames)
 
 //timer
 
@@ -44,8 +51,7 @@ const altTimer = () => {
   timer.innerHTML = formatTime(timeLeft - counter)
   if (counter === timeLeft) {
     clearInterval(timeInterval)
-    // timer.innerHTML = ''
-    player.innerHTML = 'PLAYER 2'
+    player.innerHTML = playerTwo
     instructions.innerHTML = 'Guess what it is!'
     colorContainer.innerHTML = ''
     colorContainer.style.background = ''
@@ -62,6 +68,7 @@ const guessTime = () => {
   timer.innerHTML = formatTime(guessLeft - counterTwo)
   if (counterTwo === guessLeft) {
     location.href = 'scores.html'
+    ParseInt(scoreOne) -= 10
   }
 }
 
@@ -87,10 +94,11 @@ const words = [
 
 dictionary.innerText = `Draw ${words[Math.floor(Math.random() * words.length)]}`
 setTimeout(() => {
-  dictionary.innerText = ''
+  dictionary.innerText = 'keep drawing...'
 }, 5000)
 
 //canvas
+let painting = false
 
 const startPos = (e) => {
   painting = true
@@ -106,11 +114,15 @@ picker.onChange = (color) => {
   colorContainer.style.background = color.rgbaString
 }
 
+const clearDrawing = () => {
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+}
+
 const draw = (e) => {
   if (!painting) return
-  ctx.lineWidth = 10
-  ctx.lineCap = 'round'
   ctx.strokeStyle = 'black'
+  ctx.lineWidth = 5
+  ctx.lineCap = 'round'
   ctx.strokeStyle = picker.color.rgbaString
 
   ctx.lineTo(e.clientX, e.clientY)
@@ -124,12 +136,16 @@ canvas.addEventListener('mousedown', startPos)
 canvas.addEventListener('mouseup', endPos)
 canvas.addEventListener('mousemove', draw)
 
+if (clear) {
+  console.log('click')
+  clear.addEventListener('click', clearDrawing)
+}
+
 doneBtn.addEventListener('click', () => {
+  console.log('click')
+  scoreTwo += 10
   location.href = 'scores.html'
+
   //if player 1 draws add a point to player 2
   //else add a point to player 1
 })
-againBtn.addEventListener('click', () => {
-  location.href = 'draw.html'
-})
-// window.addEventListener('load', startTimer)
