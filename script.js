@@ -3,12 +3,14 @@
 const doneBtn = document.querySelector('.check')
 
 const body = document.querySelector('.draw')
+const player = document.querySelector('.player')
+
 const clear = document.querySelector('.clear')
 const canvas = document.getElementById('paint')
 const ctx = canvas.getContext('2d')
 const colorContainer = document.querySelector('#color')
 const picker = new Picker(colorContainer)
-
+let painting = false
 const instructions = document.querySelector('.instructions')
 
 const dictionary = document.querySelector('.instructions')
@@ -19,21 +21,36 @@ let counterTwo = 0
 let timeLeft = 10
 let guessLeft = 20
 //functions
-//player names
+//local storage
 
 let playerOne = localStorage.getItem('playerOne')
 let playerTwo = localStorage.getItem('playerTwo')
+let playerOneScore = localStorage.getItem('playerOneScore')
+let playerTwoScore = localStorage.getItem('playerTwoScore')
 
-let scoreOne = '0'
-let scoreTwo = '0'
+let currDraw = playerOne
+let currGuess = playerTwo
+let guessCheck = false
 
-localStorage.setItem('playerOneScore', scoreOne)
-localStorage.setItem('playerTwoScore', scoreTwo)
+localStorage.setItem('currDraw', playerOne)
+localStorage.setItem('currGuess', playerTwo)
+player.innerText = currDraw
 
-localStorage.setItem('curr', playerOne)
+// document.addEventListener('DOMContentLoaded')
 
-player.innerHTML = playerOne
-// window.addEventListener('storage', playerNames)
+const scoreCheck = () => {
+  if (currGuess === playerOne && guessCheck) {
+    let scoreNumOne = parseInt(playerOneScore)
+    scoreNumOne += 10
+    localStorage.setItem('playerOneScore', scoreNumOne)
+  }
+  if (currGuess === playerTwo && guessCheck) {
+    let scoreNumTwo = parseInt(playerTwoScore)
+    scoreNumTwo += 10
+    localStorage.setItem('playerTwoScore', scoreNumTwo)
+  }
+  guessCheck = false
+}
 
 //timer
 
@@ -51,11 +68,11 @@ const altTimer = () => {
   timer.innerHTML = formatTime(timeLeft - counter)
   if (counter === timeLeft) {
     clearInterval(timeInterval)
-    player.innerHTML = playerTwo
-    instructions.innerHTML = 'Guess what it is!'
-    colorContainer.innerHTML = ''
+    player.innerText = currGuess
+    instructions.innerText = 'Guess what it is!'
+    colorContainer.innerText = ''
     colorContainer.style.background = ''
-    painting = true
+    painting === false
     body.style.background = '#87bfff'
     instructions.style.color = '#666a86'
     canvas.style.background = '#666a86'
@@ -65,10 +82,10 @@ const altTimer = () => {
 
 const guessTime = () => {
   counterTwo++
-  timer.innerHTML = formatTime(guessLeft - counterTwo)
+  timer.innerText = formatTime(guessLeft - counterTwo)
   if (counterTwo === guessLeft) {
+    currDraw = playerTwo
     location.href = 'scores.html'
-    ParseInt(scoreOne) -= 10
   }
 }
 
@@ -98,7 +115,8 @@ setTimeout(() => {
 }, 5000)
 
 //canvas
-let painting = false
+
+///maybe add a setTime out for painting = true and after 30 seconds it turns false
 
 const startPos = (e) => {
   painting = true
@@ -113,6 +131,8 @@ const endPos = () => {
 picker.onChange = (color) => {
   colorContainer.style.background = color.rgbaString
 }
+
+// picker.setOptions().popup = 'top'
 
 const clearDrawing = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -143,9 +163,9 @@ if (clear) {
 
 doneBtn.addEventListener('click', () => {
   console.log('click')
-  scoreTwo += 10
+  guessCheck = true
+  scoreCheck()
   location.href = 'scores.html'
-
   //if player 1 draws add a point to player 2
   //else add a point to player 1
 })
