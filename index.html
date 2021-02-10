@@ -31,14 +31,16 @@
     5. ____If the guessing player guesses correctly press the green CHECK mark, and they get a point. If the picture is not guessed, no one gets a point :( But don't worry you can play again! This time the drawing player from round one will guess! 
     <br/>
     <br/>
-    HAVE FUN! </p>
-    <p class="right" id="draw-first">Who wants to draw first? Enter your name below:</p>
-    <input class="right draw-input" id="player1" type="text">
-    <p class="right" id='guess-first'>Who wants to guess first? Enter your name below:</p>
-    <input class="right guess-input" id="player2" type="text">
+    HAVE FUN! </p> 
+    <form id="whats-my-name">
+    <label class="right" id="draw-first">Who wants to draw first?</label>
+    <input class="right draw-input" id="player-input-one" type="text" placeholder="Name">
+    <label class="right" id='guess-first'>Who wants to guess first?</label>
+    <input class="right guess-input" id="player-input-two" type="text" placeholder="Name">
+    <button type="submit" class="submit-btn">Ready!</button>
+    </form>
     <button class="right" id="play-btn">PLAY</button>
   </span>
   <script src="globals.js"></script>
-  <script src="./main.js"></script>
 </body>
 </html>
