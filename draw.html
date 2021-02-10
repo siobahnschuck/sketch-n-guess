@@ -11,23 +11,18 @@
 <body class="draw">
 <header> 
   <h1 class="player">PLAYER 1</h1>
+  <h1 class="guesser"></h1>
   <h2 class="instructions">Draw a: </h2>
 </header>
 <section class="tools"> 
-  <div class="base-timer">
-    <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <g class="base-timer__circle">
-        <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45" />
-      </g>
-    </svg>
-    <span id="base-timer-label" class="base-timer__label">
-    </span>
+<canvas id="paint" width="800" height="500"></canvas>
+<div class="base-timer">
   </div>
-<div id="color">Choose a color!</div>
+<div id="color">Click to choose a color!</div>
 <button class="check"></button>
+<button class='clear'>clear</button>
 </section>
 <!-- <div class="sketch"></div> -->
-<canvas id="paint" width="50vw"></canvas>
 <script src="https://unpkg.com/vanilla-picker@2"></script>
 <script src="./script.js"></script>
 </body>

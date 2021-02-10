@@ -4,6 +4,7 @@ const doneBtn = document.querySelector('.check')
 
 const body = document.querySelector('.draw')
 const player = document.querySelector('.player')
+const guesser = document.querySelector('.guesser')
 
 const clear = document.querySelector('.clear')
 const canvas = document.getElementById('paint')
@@ -16,6 +17,8 @@ const instructions = document.querySelector('.instructions')
 const dictionary = document.querySelector('.instructions')
 
 const timer = document.querySelector('.base-timer')
+const ding = new Audio('audio/ding.wav')
+const scribble = new Audio('audio/scribble.wav')
 let counter = 0
 let counterTwo = 0
 let timeLeft = 10
@@ -28,26 +31,63 @@ let playerTwo = localStorage.getItem('playerTwo')
 let playerOneScore = localStorage.getItem('playerOneScore')
 let playerTwoScore = localStorage.getItem('playerTwoScore')
 
-let currDraw = playerOne
-let currGuess = playerTwo
+localStorage.setItem('playerOneDraw', playerOne)
+localStorage.setItem('playerTwoDraw', playerTwo)
+localStorage.setItem('playerOneGuess', playerOne)
+localStorage.setItem('playerTwoGuess', playerTwo)
+
+let playerOneDraw = localStorage.getItem('playerOneDraw')
+let playerTwoDraw = localStorage.getItem('playerTwoDraw')
+let playerOneGuess = localStorage.getItem('playerOneGuess')
+let playerTwoGuess = localStorage.getItem('playerTwoGuess')
+
+let currDraw = playerOneDraw
+let currGuess = playerTwoGuess
+// let currDraw = playerOne
+// if (currDraw === playerOne) {
+//   currDraw = playerTwo
+// } else {
+//   currDraw = playerOne
+// }
+// localStorage.setItem('playerOneDraw', currDraw)
+// let currGuess = playerTwo
+// localStorage.setItem('currGuess', currGuess)
 let guessCheck = false
 
-localStorage.setItem('currDraw', playerOne)
-localStorage.setItem('currGuess', playerTwo)
-player.innerText = currDraw
+// document.addEventListener('DOMContentLoaded', )
 
-// document.addEventListener('DOMContentLoaded')
+const switchPlayers = () => {
+  //player.innerText starts at currDraw and each time play again
+  //it switches
+  if (currDraw === playerOneDraw) {
+    currDraw = playerTwoDraw
+    currGuess = playerOneGuess
+    player.innerText = playerOne
+    console.log(currDraw)
+    console.log(currGuess)
+  } else {
+    currDraw = playerOneDraw
+    currGuess = playerTwoGuess
+    player.innerText = playerOne
+  }
+}
 
+switchPlayers()
+
+// player.innerText = playerOne
 const scoreCheck = () => {
-  if (currGuess === playerOne && guessCheck) {
+  if (currGuess === playerOneGuess && guessCheck) {
+    console.log(guessCheck)
     let scoreNumOne = parseInt(playerOneScore)
     scoreNumOne += 10
     localStorage.setItem('playerOneScore', scoreNumOne)
+    // switchPlayers()
   }
-  if (currGuess === playerTwo && guessCheck) {
+  if (currGuess === playerTwoGuess && guessCheck) {
     let scoreNumTwo = parseInt(playerTwoScore)
     scoreNumTwo += 10
     localStorage.setItem('playerTwoScore', scoreNumTwo)
+    // switchPlayers()
   }
   guessCheck = false
 }
@@ -68,7 +108,14 @@ const altTimer = () => {
   timer.innerHTML = formatTime(timeLeft - counter)
   if (counter === timeLeft) {
     clearInterval(timeInterval)
-    player.innerText = currGuess
+    ding.play()
+    if (currGuess === playerTwoGuess) {
+      player.innerText = ''
+      guesser.innerText = playerTwo
+    } else {
+      player.innerText = ''
+      guesser.innerText = playerTwo
+    }
     instructions.innerText = 'Guess what it is!'
     colorContainer.innerText = ''
     colorContainer.style.background = ''
@@ -76,7 +123,7 @@ const altTimer = () => {
     body.style.background = '#87bfff'
     instructions.style.color = '#666a86'
     canvas.style.background = '#666a86'
-    setInterval(guessTime, 1000)
+    guessInterval
   }
 }
 
@@ -84,11 +131,26 @@ const guessTime = () => {
   counterTwo++
   timer.innerText = formatTime(guessLeft - counterTwo)
   if (counterTwo === guessLeft) {
-    currDraw = playerTwo
-    location.href = 'scores.html'
+    clearInterval(guessInterval)
+    ding.play()
+    // if (currDraw === playerOne && guessCheck) {
+    //   let scoreNumOne = parseInt(playerOneScore)
+    //   scoreNumOne -= 10
+    //   localStorage.setItem('playerOneScore', scoreNumOne)
+    // }
+    // if (currDraw === playerTwo && guessCheck) {
+    //   let scoreNumTwo = parseInt(playerTwoScore)
+    //   scoreNumTwo -= 10
+    //   localStorage.setItem('playerTwoScore', scoreNumTwo)
+    // }
+    guessCheck = false
+    // switchPlayers()
+    setTimeout(() => {
+      location.href = 'scores.html'
+    }, 4000)
   }
 }
-
+const guessInterval = setInterval(guessTime, 1000)
 const timeInterval = setInterval(altTimer, 1000)
 
 // dictionary
@@ -120,11 +182,13 @@ setTimeout(() => {
 
 const startPos = (e) => {
   painting = true
+  scribble.play()
   draw(e)
 }
 
 const endPos = () => {
   painting = false
+  scribble.pause()
   ctx.beginPath()
 }
 
@@ -156,16 +220,16 @@ canvas.addEventListener('mousedown', startPos)
 canvas.addEventListener('mouseup', endPos)
 canvas.addEventListener('mousemove', draw)
 
-if (clear) {
-  console.log('click')
-  clear.addEventListener('click', clearDrawing)
-}
+clear.addEventListener('click', clearDrawing)
 
 doneBtn.addEventListener('click', () => {
   console.log('click')
   guessCheck = true
   scoreCheck()
-  location.href = 'scores.html'
+  // switchPlayers()
+  setTimeout(() => {
+    location.href = 'scores.html'
+  }, 4000)
   //if player 1 draws add a point to player 2
   //else add a point to player 1
 })
