@@ -53,19 +53,29 @@ html {
 }
 .draw-input {
   grid-row: 2/3;
-  height: 10px;
-  order: 2;
+  height: 20px;
   margin-top: 40px;
+  border: none;
+  box-shadow: 10px 5px 5px black;
 }
 
+.draw-input:focus {
+  background-color: #b3e7bf;
+}
 #guess-first {
   grid-row: 3/4;
 }
 
 .guess-input {
   grid-row: 3/4;
-  height: 10px;
+  height: 20px;
   margin-top: 40px;
+  border: none;
+  box-shadow: 10px 5px 5px black;
+}
+
+.guess-input:focus {
+  background-color: #b3e7bf;
 }
 
 #play-btn {
@@ -76,6 +86,11 @@ html {
   color: #666a86;
   font-size: x-large;
   background-color: #d3f6db;
+  box-shadow: 10px 5px 5px #666a86;
+}
+
+#play-btn:hover {
+  background-color: #b3e7bf;
 }
 
 p {
@@ -91,8 +106,7 @@ p {
 }
 
 .player,
-.player1,
-.player2 {
+.guesser {
   color: white;
   font-size: 5.2em;
   margin: 0;
@@ -118,28 +132,36 @@ p {
   background-color: #87bfff;
 }
 
+#paint:hover {
+  cursor: url(./imgs/62913-crayon-icon.png), auto;
+}
+
 .check {
   grid-row: 3/ 4;
   grid-column: 2 /3;
   justify-self: left;
   align-self: end;
-  background-image: url(./imgs/check-01.svg);
-  height: 18vh;
-  width: 8vw;
+  background-image: url('./imgs/button-smaller-check-01.svg');
+  height: 150px;
+  width: 150px;
+  border: none;
   background-size: contain;
   background-repeat: no-repeat;
   border-radius: 10px;
 }
 
+.check:hover {
+  box-shadow: 10px 5px 20px white;
+}
+
 #color {
-  align-self: end;
+  align-self: center;
   grid-row: 2 / 3;
   grid-column: 2 /3;
-  height: 90px;
-  width: 400px;
-  text-align: center;
-  font-size: 40px;
-  border-radius: 100%;
+  height: auto;
+  width: auto;
+  text-align: left;
+  font-size: 30px;
 }
 
 .base-timer {
@@ -152,9 +174,12 @@ p {
 }
 
 .clear {
+  width: 90%;
   background-color: #eb9486;
   font-style: italic;
   border: none;
+  border-radius: 20px;
+  color: white;
 }
 
 /* .base-timer__circle {
@@ -178,39 +203,39 @@ p {
   font-size: 40px;
 }
 
-/* guess.html */
-
-.guess {
-  background-color: #87bfff;
-  font-family: 'Raleway', sans-serif;
-}
-
-.player {
-  color: white;
-  font-size: 5.2em;
-  margin: 0;
-}
-
-.instructionsG {
-  color: #666a86;
-  font-size: 4em;
-  margin: 0;
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
   width: 100%;
-}
-
-.guessCanvas {
-  background-color: #666a86;
-}
-
-/* scores.html */
-
-.scores {
+  height: 100%;
+  overflow: auto;
   background-color: #666a86;
   font-family: 'Raleway', sans-serif;
-}
-
-.scoreboard {
   text-align: center;
   font-size: 80px;
   color: #87bfff;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+.modal.show {
+  display: flex;
+}
+
+.player1,
+.player2 {
+  color: white;
 }
