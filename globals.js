@@ -7,10 +7,10 @@ const playerTwoInput = document.getElementById('player-input-two')
 // const playerOne = localStorage.getItem(playerOneInput.value)
 // const playerTwo = localStorage.getItem(playerTwoInput.value)
 
-let scoreOne = '0'
-let scoreTwo = '0'
-localStorage.setItem('playerTwoScore', scoreTwo)
-localStorage.setItem('playerOneScore', scoreOne)
+// let scoreOne = '0'
+// let scoreTwo = '0'
+// localStorage.setItem('playerTwoScore', scoreTwo)
+// localStorage.setItem('playerOneScore', scoreOne)
 
 if (playBtn) {
   playBtn.addEventListener('click', () => {

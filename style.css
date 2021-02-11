@@ -76,6 +76,21 @@ html {
 
 .guess-input:focus {
   background-color: #b3e7bf;
+  outline: 0;
+}
+
+.start {
+  display: inline;
+  border-radius: 10px;
+  height: 5vh;
+  width: 10vh;
+  color: #666a86;
+  background-color: #d3f6db;
+  border: 3px solid #666a86;
+}
+
+.start:hover {
+  background-color: #b3e7bf;
 }
 
 #play-btn {
@@ -93,6 +108,10 @@ html {
   background-color: #b3e7bf;
 }
 
+#play-btn:focus {
+  outline: 0;
+}
+
 p {
   font-style: italic;
   text-align: center;
@@ -103,6 +122,7 @@ p {
 .draw {
   background-color: #666a86;
   font-family: 'Raleway', sans-serif;
+  margin: 20px;
 }
 
 .player,
@@ -121,7 +141,7 @@ p {
 
 .tools {
   display: grid;
-  grid-template-columns: 75% 25%;
+  grid-template-columns: 850px 25%;
   grid-template-rows: 1fr 1fr 1fr;
   height: 100%;
 }
@@ -140,7 +160,7 @@ p {
   grid-row: 3/ 4;
   grid-column: 2 /3;
   justify-self: left;
-  align-self: end;
+  align-self: start;
   background-image: url('./imgs/button-smaller-check-01.svg');
   height: 150px;
   width: 150px;
@@ -155,13 +175,15 @@ p {
 }
 
 #color {
+  position: relative;
   align-self: center;
   grid-row: 2 / 3;
   grid-column: 2 /3;
   height: auto;
-  width: auto;
-  text-align: left;
+  width: 800px;
+  text-align: right;
   font-size: 30px;
+  cursor: url(./imgs/62913-crayon-icon.png), auto;
 }
 
 .base-timer {
@@ -174,12 +196,18 @@ p {
 }
 
 .clear {
-  width: 90%;
+  width: 150px;
+  height: 150px;
   background-color: #eb9486;
   font-style: italic;
+  font-size: 40px;
   border: none;
   border-radius: 20px;
   color: white;
+}
+
+.clear:hover {
+  box-shadow: 10px 5px 20px white;
 }
 
 /* .base-timer__circle {

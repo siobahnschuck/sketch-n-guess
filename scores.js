@@ -63,7 +63,7 @@ againBtn.addEventListener('click', () => {
   //   localStorage.setItem('currGuess', playerTwo)
   //   currGuess = playerTwo
   // }
-  // switchPlayers()
+  switchPlayers()
   setTimeout(() => {
     location.href = 'draw.html'
   }, 5000)

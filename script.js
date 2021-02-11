@@ -12,6 +12,7 @@ const timer = document.querySelector('.base-timer')
 const scoreOne = document.querySelector('.player1')
 const scoreTwo = document.querySelector('.player2')
 const startBtn = document.querySelector('.start')
+const startInstructions = document.querySelector('.start-instructions')
 
 //EXTERNAL VARIABLES
 const picker = new Picker(colorContainer)
@@ -60,7 +61,7 @@ const getWord = () => {
   }, 5000)
 }
 
-getWord()
+// getWord()
 
 const switchPlayers = () => {
   if (activePlayer === playerOne) {
@@ -94,22 +95,29 @@ const formatTime = (time) => {
   return `:${secs}`
 }
 
+let gameTimer
+let secondTimer
 const stopTimer = () => {
+  clearInterval(gameTimer)
   let timeInterval = setInterval(drawTimer, 1000)
   clearInterval(timeInterval)
+  timeInterval = 0
   let guessInterval = setInterval(guessTimer, 1000)
   clearInterval(guessInterval)
+  guessInterval = 0
+  timer.innerHTML = ''
 }
 
-// const timer = () => {
+// const timers = () => {}
 
-// }
 const drawTimer = () => {
   if (gameActive === true) {
-    console.log('draw timer')
-    counter++
-    timer.innerHTML = formatTime(timeLeft - counter)
-    if (counter === timeLeft) {
+    if (counter < timeLeft) {
+      console.log('draw timer')
+      counter++
+      console.log(counter)
+      timer.innerHTML = formatTime(timeLeft - counter)
+    } else if (counter >= timeLeft) {
       stopTimer()
       ding.play()
       if (activePlayer === playerOne) {
@@ -122,7 +130,7 @@ const drawTimer = () => {
       body.style.background = '#87bfff'
       instructions.style.color = '#666a86'
       canvas.style.background = '#666a86'
-      setInterval(guessTimer, 1000)
+      secondTimer = setInterval(guessTimer, 1000)
     }
   }
 }
@@ -131,9 +139,19 @@ const guessTimer = () => {
   if (gameActive === true) {
     console.log('guess timer')
     counterTwo++
+    console.log(counterTwo)
     timer.innerText = formatTime(guessLeft - counterTwo)
-    if (counterTwo === guessLeft) {
+    if (counterTwo >= guessLeft) {
+      clearInterval(secondTimer)
       stopTimer()
+      if (activePlayer === playerOne) {
+        playerTwoScore -= 10
+      } else {
+        playerOneScore -= 10
+      }
+      //stop timer is not clearing guess timer
+      console.log(stopTimer)
+      console.log('the timer should have stopped')
       ding.play()
       gameActive = false
       toggleModal()
@@ -175,6 +193,20 @@ const draw = (e) => {
   ctx.moveTo(e.clientX, e.clientY)
 }
 
+const startGame = () => {
+  startInstructions.innerText = 'Click HERE to choose a color'
+  startBtn.remove()
+  gameActive = true
+  painting = false
+  clearDrawing()
+  counter = 0
+  counterTwo = 0
+  colorContainer.style.opacity = 100
+  getWord()
+  stopTimer()
+  gameTimer = setInterval(drawTimer, 1000)
+}
+
 const playGame = () => {
   gameActive = true
   painting = false
@@ -183,7 +215,8 @@ const playGame = () => {
   counterTwo = 0
   colorContainer.style.opacity = 100
   getWord()
-  setInterval(drawTimer, 1000)
+  stopTimer()
+  gameTimer = setInterval(drawTimer, 1000)
 }
 
 //EVENT LISTENERS
@@ -192,7 +225,7 @@ canvas.addEventListener('mouseup', endPos)
 canvas.addEventListener('mousemove', draw)
 clear.addEventListener('click', clearDrawing)
 
-startBtn.addEventListener('click', playGame)
+startBtn.addEventListener('click', startGame)
 
 doneBtn.addEventListener('click', () => {
   stopTimer()
