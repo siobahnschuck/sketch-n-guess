@@ -5,6 +5,7 @@ html {
 .home {
   background-color: #87bfff;
   font-family: 'Raleway', sans-serif;
+  margin: 20px;
 }
 
 .home-title {
@@ -23,7 +24,6 @@ html {
 .rules {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
 .left {
@@ -41,17 +41,30 @@ html {
 
 .title {
   justify-self: start;
-  padding: 20px;
+  padding-bottom: 20px;
 }
+
+.subheading {
+  text-align: left;
+  padding-top: 25px;
+}
+
 .rule-list {
+  text-align: left;
   align-self: start;
   padding: 80px;
+  width: 500px;
+  height: 500px;
 }
-#draw-first {
-  grid-row: 2 /3;
-  order: 1;
+
+#whats-my-name {
+  grid-row: 1/2;
+  padding: 150px 60px 0;
+  text-align: center;
 }
+
 .draw-input {
+  font-family: 'Raleway', sans-serif;
   grid-row: 2/3;
   height: 20px;
   margin-top: 40px;
@@ -61,12 +74,14 @@ html {
 
 .draw-input:focus {
   background-color: #b3e7bf;
+  outline: 0;
 }
 #guess-first {
-  grid-row: 3/4;
+  height: 10px;
 }
 
 .guess-input {
+  font-family: 'Raleway', sans-serif;
   grid-row: 3/4;
   height: 20px;
   margin-top: 40px;

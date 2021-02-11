@@ -10,36 +10,39 @@
 </head>
 <body class="home">
   <header>
-  <h2 class="drk-blue">WELCOME</h2>
-  <h1 class="home-title">TO SKETCH-N-GUESS</h1>
+  <h2 class="drk-blue">WELCOME TO</h2>
+  <h1 class="home-title">SKETCH-N-GUESS</h1>
   </header>
   <span class="rules">
-  <h2 class="left title"><strong>HOW TO PLAY</strong></h2>
-  <p class="left rule-list"> <strong>Hello and WELCOME!</strong> 
+  <h2 class="left title"><strong>HOW TO PLAY</strong> </h2>
+  <br/>
+  <h3 class="left subheading"> If you would like to play Sketch-N-Guess there are a few things to go over before you can begin.</h3>
+  <p class="left rule-list"> 
     <br/> 
-    If you would like to play Sketch-N-Guess there are a few things to go over before you can begin.
     <br/>
     <br/>
     1. ____This is a <strong>TWO</strong> player game, so grab a friend! 
     <br/>
-    2. ____Each player will take turns either drawing or guessing, while one is drawing the other player should look away for the screen for the first five seconds while the drawer gets their clue. 
+    2. ____Each player will take turns either drawing or guessing! Enter your names to the right and hit "Ready!". Then follow the instructions on the next screen to begin! 
     <br/>
-    3. ____After the clue disappears, the drawing player should start to draw and the guessing player can begin to guess! You only have 30 seconds to draw so think fast! 
+    3. ____While one is drawing the other player should look away for the screen for the first five seconds while the drawer gets their clue. 
+    After the clue disappears, the drawing player should start to draw and the guessing player can begin to guess! You only have 60 seconds to draw so think fast! 
     <br/>
-    4. ____You can choose your color on the side! 
+    4. ____You can change your color at any point by clicking the color box again.
     <br/>
-    5. ____If the guessing player guesses correctly press the green CHECK mark, and they get a point. If the picture is not guessed, no one gets a point :( But don't worry you can play again! This time the drawing player from round one will guess! 
+    5. ____If the guessing player guesses correctly press the green CHECK mark, and they will receive 10 points. If the picture is not guessed, the artist looses TEN POINTS! But don't worry you can play again! This time the drawing player from round one will guess! 
     <br/>
     <br/>
     HAVE FUN! </p> 
     <form id="whats-my-name">
     <label class="right" id="draw-first">Who wants to draw first?</label>
-    <input class="right draw-input" id="player-input-one" type="text" placeholder="Name">
+    <input class="right draw-input" id="player-input-one" type="text" placeholder="name">
+    <br/>
     <label class="right" id='guess-first'>Who wants to guess first?</label>
-    <input class="right guess-input" id="player-input-two" type="text" placeholder="Name">
-    <button type="submit" class="submit-btn">Ready!</button>
+    <input class="right guess-input" id="player-input-two" type="text" placeholder="name">
+    <button type="submit" class="submit-btn right" id="play-btn">Ready!</button>
     </form>
-    <button class="right" id="play-btn">PLAY</button>
+    <!-- <button class="right" id="play-btn">PLAY</button> -->
   </span>
   <script src="globals.js"></script>
 </body>
