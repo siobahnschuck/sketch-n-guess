@@ -1,160 +1,39 @@
-/// script for draw and guess html
-//global variables
+//DOM VARIABLES
 const doneBtn = document.querySelector('.check')
-
+const playAgainBtn = document.querySelector('.again')
 const body = document.querySelector('.draw')
 const player = document.querySelector('.player')
-const guesser = document.querySelector('.guesser')
-
+const modal = document.getElementById('modal')
 const clear = document.querySelector('.clear')
 const canvas = document.getElementById('paint')
-const ctx = canvas.getContext('2d')
 const colorContainer = document.querySelector('#color')
-const picker = new Picker(colorContainer)
-let painting = false
 const instructions = document.querySelector('.instructions')
-
-const dictionary = document.querySelector('.instructions')
-
 const timer = document.querySelector('.base-timer')
+const scoreOne = document.querySelector('.player1')
+const scoreTwo = document.querySelector('.player2')
+const startBtn = document.querySelector('.start')
+
+//EXTERNAL VARIABLES
+const picker = new Picker(colorContainer)
 const ding = new Audio('audio/ding.wav')
 const scribble = new Audio('audio/scribble.wav')
-let counter = 0
-let counterTwo = 0
-let timeLeft = 10
-let guessLeft = 20
-//functions
-//local storage
+const ctx = canvas.getContext('2d')
 
+//GET LOCAL STORAGE
 let playerOne = localStorage.getItem('playerOne')
 let playerTwo = localStorage.getItem('playerTwo')
-let playerOneScore = localStorage.getItem('playerOneScore')
-let playerTwoScore = localStorage.getItem('playerTwoScore')
 
-localStorage.setItem('playerOneDraw', playerOne)
-localStorage.setItem('playerTwoDraw', playerTwo)
-localStorage.setItem('playerOneGuess', playerOne)
-localStorage.setItem('playerTwoGuess', playerTwo)
-
-let playerOneDraw = localStorage.getItem('playerOneDraw')
-let playerTwoDraw = localStorage.getItem('playerTwoDraw')
-let playerOneGuess = localStorage.getItem('playerOneGuess')
-let playerTwoGuess = localStorage.getItem('playerTwoGuess')
-
-let currDraw = playerOneDraw
-let currGuess = playerTwoGuess
-// let currDraw = playerOne
-// if (currDraw === playerOne) {
-//   currDraw = playerTwo
-// } else {
-//   currDraw = playerOne
-// }
-// localStorage.setItem('playerOneDraw', currDraw)
-// let currGuess = playerTwo
-// localStorage.setItem('currGuess', currGuess)
-let guessCheck = false
-
-// document.addEventListener('DOMContentLoaded', )
-
-const switchPlayers = () => {
-  //player.innerText starts at currDraw and each time play again
-  //it switches
-  if (currDraw === playerOneDraw) {
-    currDraw = playerTwoDraw
-    currGuess = playerOneGuess
-    player.innerText = playerOne
-    console.log(currDraw)
-    console.log(currGuess)
-  } else {
-    currDraw = playerOneDraw
-    currGuess = playerTwoGuess
-    player.innerText = playerOne
-  }
-}
-
-switchPlayers()
-
-// player.innerText = playerOne
-const scoreCheck = () => {
-  if (currGuess === playerOneGuess && guessCheck) {
-    console.log(guessCheck)
-    let scoreNumOne = parseInt(playerOneScore)
-    scoreNumOne += 10
-    localStorage.setItem('playerOneScore', scoreNumOne)
-    // switchPlayers()
-  }
-  if (currGuess === playerTwoGuess && guessCheck) {
-    let scoreNumTwo = parseInt(playerTwoScore)
-    scoreNumTwo += 10
-    localStorage.setItem('playerTwoScore', scoreNumTwo)
-    // switchPlayers()
-  }
-  guessCheck = false
-}
-
-//timer
-
-const formatTime = (time) => {
-  let mins = Math.floor(time / 60)
-  let secs = time % 60
-  if (secs < 10) {
-    secs = `0${secs}`
-  }
-  return `:${secs}`
-}
-
-const altTimer = () => {
-  counter++
-  timer.innerHTML = formatTime(timeLeft - counter)
-  if (counter === timeLeft) {
-    clearInterval(timeInterval)
-    ding.play()
-    if (currGuess === playerTwoGuess) {
-      player.innerText = ''
-      guesser.innerText = playerTwo
-    } else {
-      player.innerText = ''
-      guesser.innerText = playerTwo
-    }
-    instructions.innerText = 'Guess what it is!'
-    colorContainer.innerText = ''
-    colorContainer.style.background = ''
-    painting === false
-    body.style.background = '#87bfff'
-    instructions.style.color = '#666a86'
-    canvas.style.background = '#666a86'
-    guessInterval
-  }
-}
-
-const guessTime = () => {
-  counterTwo++
-  timer.innerText = formatTime(guessLeft - counterTwo)
-  if (counterTwo === guessLeft) {
-    clearInterval(guessInterval)
-    ding.play()
-    // if (currDraw === playerOne && guessCheck) {
-    //   let scoreNumOne = parseInt(playerOneScore)
-    //   scoreNumOne -= 10
-    //   localStorage.setItem('playerOneScore', scoreNumOne)
-    // }
-    // if (currDraw === playerTwo && guessCheck) {
-    //   let scoreNumTwo = parseInt(playerTwoScore)
-    //   scoreNumTwo -= 10
-    //   localStorage.setItem('playerTwoScore', scoreNumTwo)
-    // }
-    guessCheck = false
-    // switchPlayers()
-    setTimeout(() => {
-      location.href = 'scores.html'
-    }, 4000)
-  }
-}
-const guessInterval = setInterval(guessTime, 1000)
-const timeInterval = setInterval(altTimer, 1000)
-
-// dictionary
-
+//STARTING GAME STATE
+let counter = 0
+let counterTwo = 0
+let timeLeft = 60
+let guessLeft = 20
+let painting = false
+let gameActive = true
+let activePlayer = playerOne
+let playerOneScore = 0
+let playerTwoScore = 0
+player.innerText = playerOne
 const words = [
   'a cow',
   'a dog',
@@ -171,14 +50,96 @@ const words = [
   'a banana'
 ]
 
-dictionary.innerText = `Draw ${words[Math.floor(Math.random() * words.length)]}`
-setTimeout(() => {
-  dictionary.innerText = 'keep drawing...'
-}, 5000)
+//FUNCTIONS
+const getWord = () => {
+  instructions.innerText = `Draw ${
+    words[Math.floor(Math.random() * words.length)]
+  }`
+  setTimeout(() => {
+    instructions.innerText = 'keep drawing...'
+  }, 5000)
+}
 
-//canvas
+getWord()
 
-///maybe add a setTime out for painting = true and after 30 seconds it turns false
+const switchPlayers = () => {
+  if (activePlayer === playerOne) {
+    activePlayer = playerTwo
+  } else {
+    activePlayer = playerOne
+  }
+  player.innerText = activePlayer
+}
+
+const toggleModal = () => {
+  modal.style.display = 'block'
+  scoreOne.innerText = `${playerOne} : ${playerOneScore}`
+  scoreTwo.innerText = `${playerTwo} : ${playerTwoScore}`
+  gameActive = false
+}
+
+const scoreCheck = () => {
+  if (activePlayer === playerOne) {
+    playerTwoScore += 10
+  } else {
+    playerOneScore += 10
+  }
+}
+
+const formatTime = (time) => {
+  let secs = time % 60
+  if (secs < 10) {
+    secs = `0${secs}`
+  }
+  return `:${secs}`
+}
+
+const stopTimer = () => {
+  let timeInterval = setInterval(drawTimer, 1000)
+  clearInterval(timeInterval)
+  let guessInterval = setInterval(guessTimer, 1000)
+  clearInterval(guessInterval)
+}
+
+// const timer = () => {
+
+// }
+const drawTimer = () => {
+  if (gameActive === true) {
+    console.log('draw timer')
+    counter++
+    timer.innerHTML = formatTime(timeLeft - counter)
+    if (counter === timeLeft) {
+      stopTimer()
+      ding.play()
+      if (activePlayer === playerOne) {
+        player.innerText = playerTwo
+      } else {
+        player.innerText = playerOne
+      }
+      instructions.innerText = 'Guess what it is!'
+      colorContainer.style.opacity = 0
+      body.style.background = '#87bfff'
+      instructions.style.color = '#666a86'
+      canvas.style.background = '#666a86'
+      setInterval(guessTimer, 1000)
+    }
+  }
+}
+
+const guessTimer = () => {
+  if (gameActive === true) {
+    console.log('guess timer')
+    counterTwo++
+    timer.innerText = formatTime(guessLeft - counterTwo)
+    if (counterTwo === guessLeft) {
+      stopTimer()
+      ding.play()
+      gameActive = false
+      toggleModal()
+    }
+  }
+}
 
 const startPos = (e) => {
   painting = true
@@ -204,32 +165,43 @@ const clearDrawing = () => {
 
 const draw = (e) => {
   if (!painting) return
-  ctx.strokeStyle = 'black'
+  gameActive = true
   ctx.lineWidth = 5
   ctx.lineCap = 'round'
   ctx.strokeStyle = picker.color.rgbaString
-
   ctx.lineTo(e.clientX, e.clientY)
   ctx.stroke()
   ctx.beginPath()
   ctx.moveTo(e.clientX, e.clientY)
 }
 
-//event listeners
+const playGame = () => {
+  gameActive = true
+  painting = false
+  clearDrawing()
+  counter = 0
+  counterTwo = 0
+  colorContainer.style.opacity = 100
+  getWord()
+  setInterval(drawTimer, 1000)
+}
+
+//EVENT LISTENERS
 canvas.addEventListener('mousedown', startPos)
 canvas.addEventListener('mouseup', endPos)
 canvas.addEventListener('mousemove', draw)
-
 clear.addEventListener('click', clearDrawing)
 
+startBtn.addEventListener('click', playGame)
+
 doneBtn.addEventListener('click', () => {
-  console.log('click')
-  guessCheck = true
+  stopTimer()
   scoreCheck()
-  // switchPlayers()
-  setTimeout(() => {
-    location.href = 'scores.html'
-  }, 4000)
-  //if player 1 draws add a point to player 2
-  //else add a point to player 1
+  toggleModal()
+})
+
+playAgainBtn.addEventListener('click', () => {
+  modal.style.display = 'none'
+  playGame()
+  switchPlayers()
 })

@@ -10,10 +10,17 @@
 </head>
 <body class="draw">
 <header> 
-  <h1 class="player">PLAYER 1</h1>
-  <h1 class="guesser"></h1>
-  <h2 class="instructions">Draw a: </h2>
+  <h1 class="player"></h1>
+  <h2 class="instructions"></h2>
+  <h2 class="start-instructions">Choose a color and hit start to begin</h2>
+  <button class="start">Start</button>
 </header>
+<div class="modal" id="modal">
+  <h1 class="scoreboard">SCOREBOARD</h1>
+  <h1 class="player1"></h1>
+  <h1 class="player2"></h1>
+  <button class="again" id="play-btn">PLAY AGAIN</button>
+</div>
 <section class="tools"> 
 <canvas id="paint" width="800" height="500"></canvas>
 <div class="base-timer">
@@ -22,7 +29,6 @@
 <button class="check"></button>
 <button class='clear'>clear</button>
 </section>
-<!-- <div class="sketch"></div> -->
 <script src="https://unpkg.com/vanilla-picker@2"></script>
 <script src="./script.js"></script>
 </body>
