@@ -16,8 +16,6 @@ nameForm.addEventListener(
   (e) => {
     e.preventDefault()
     if (playerOneInput < 1 || playerTwoInput < 1) return
-    // scoreOne.innerHTML = playerOneInput.value
-    // scoreTwo.innerHTML = playerTwoInput.value
     localStorage.setItem('playerOne', playerOneInput.value)
     localStorage.setItem('playerTwo', playerTwoInput.value)
   },

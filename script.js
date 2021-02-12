@@ -102,8 +102,6 @@ const getWord = () => {
   }, 5000)
 }
 
-// getWord()
-
 const switchPlayers = () => {
   if (activePlayer === playerOne) {
     activePlayer = playerTwo
@@ -206,8 +204,6 @@ const endPos = () => {
 picker.onChange = (color) => {
   colorContainer.style.background = color.rgbaString
 }
-
-// picker.setOptions().popup = 'top'
 
 const clearDrawing = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height)

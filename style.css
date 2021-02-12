@@ -145,8 +145,6 @@ html {
 
 #play-btn:after {
   content: '';
-  /* height: 100%;
-  width: 100%; */
   padding: 4px;
   position: absolute;
   bottom: -15px;
@@ -169,8 +167,6 @@ p {
   font-style: italic;
   text-align: center;
 }
-
-/* draw.html */
 
 header {
   grid-row: 1 / 3;
@@ -207,7 +203,6 @@ header {
 
 #paint {
   grid-row: 1 / span 3;
-  /* grid-column: 1 / span 3; */
   background-color: #87bfff;
   margin-bottom: 150px;
 }
@@ -239,7 +234,6 @@ header {
 }
 
 #color {
-  /* position: fixed; */
   margin: 0;
   align-self: center;
   grid-row: 2 / 3;
