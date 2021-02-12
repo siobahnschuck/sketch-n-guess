@@ -26,7 +26,7 @@ Sketch-N-Guess is an browser based, two player game inspired by the classic boar
 
 To view my Trello board click [here](https://trello.com/b/0e0sdKpX/sketch-n-guess)
 
-To play, grab a friends and click [this link](http://www.mywebsite.net) to visit my website.
+To play, grab a friends and click [this link](ad-voice.surge.sh) to visit my website.
 
 ***
 ## ***Screenshots***
