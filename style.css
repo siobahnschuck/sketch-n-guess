@@ -94,29 +94,67 @@ html {
   outline: 0;
 }
 
+.top {
+  display: inline-flex;
+  justify-content: space-around;
+}
+
 .start {
-  display: inline;
-  border-radius: 10px;
-  height: 5vh;
-  width: 10vh;
+  align-self: flex-end;
+  border-radius: 20px;
+  border: none;
+  margin-left: 55px;
+  height: 150px;
+  width: 150px;
   color: #666a86;
-  background-color: #d3f6db;
-  border: 3px solid #666a86;
+  background-color: #b6dabe;
+  font-style: italic;
+  font-size: 40px;
+  color: white;
 }
 
 .start:hover {
   background-color: #b3e7bf;
 }
 
+.start:focus {
+  outline: 0;
+}
+
 #play-btn {
   grid-row: 4/5;
   height: 100px;
   width: 200px;
+  padding-top: 10px;
   border-radius: 100%;
   color: #666a86;
   font-size: x-large;
   background-color: #d3f6db;
   box-shadow: 10px 5px 5px #666a86;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  text-shadow: #4d5066;
+  box-shadow: inset 0 1px 0 #afb3d4, 0 10px 0 #afb3d4;
+  filter: drop-shadow(color=#000, offx=0px, offy=1px);
+}
+
+#play-btn:active {
+  top: 10px;
+  background-color: #9acfa6;
+  box-shadow: inset 0 1px 0 #666a86, 0 1px 0 #545870;
+}
+
+#play-btn:after {
+  content: '';
+  /* height: 100%;
+  width: 100%; */
+  padding: 4px;
+  position: absolute;
+  bottom: -15px;
+  left: -4px;
+  z-index: -1;
+  background-color: #77a782;
+  border-radius: 100%;
+  transition-delay: 2s;
 }
 
 #play-btn:hover {
@@ -134,30 +172,36 @@ p {
 
 /* draw.html */
 
+header {
+  grid-row: 1 / 3;
+  grid-column: 3 / 4;
+}
+
 .draw {
   background-color: #666a86;
   font-family: 'Raleway', sans-serif;
   margin: 20px;
 }
 
-.player,
-.guesser {
+.player {
   color: white;
   font-size: 5.2em;
   margin: 0;
+  padding-left: 50px;
 }
 
 .instructions {
   color: #87bfff;
   font-size: 4em;
   margin: 0;
+  padding-left: 80px;
   width: 100%;
 }
 
 .tools {
   display: grid;
-  grid-template-columns: 850px 25%;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 30vh 30vh 30vh;
+  grid-template-columns: 850px 10% auto;
   height: 100%;
 }
 
@@ -165,6 +209,7 @@ p {
   grid-row: 1 / span 3;
   /* grid-column: 1 / span 3; */
   background-color: #87bfff;
+  margin-bottom: 150px;
 }
 
 #paint:hover {
@@ -189,8 +234,13 @@ p {
   box-shadow: 10px 5px 20px white;
 }
 
+.check:focus {
+  outline: 0;
+}
+
 #color {
-  position: relative;
+  /* position: fixed; */
+  margin: 0;
   align-self: center;
   grid-row: 2 / 3;
   grid-column: 2 /3;
@@ -213,27 +263,26 @@ p {
 .clear {
   width: 150px;
   height: 150px;
+  grid-column: 2 /3;
+  grid-row: 2/3;
   background-color: #eb9486;
   font-style: italic;
   font-size: 40px;
   border: none;
   border-radius: 20px;
   color: white;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
 }
 
 .clear:hover {
   box-shadow: 10px 5px 20px white;
+  cursor: url(imgs/eraser.png), auto;
 }
 
-/* .base-timer__circle {
-  fill: none;
-  stroke: none;
+.clear:focus {
+  outline: 0;
 }
-
-.base-timer__path-elapsed {
-  stroke-width: 7px;
-  stroke: grey;
-} */
 
 #base-timer-label {
   position: relative;
@@ -258,7 +307,7 @@ p {
   background-color: #666a86;
   font-family: 'Raleway', sans-serif;
   text-align: center;
-  font-size: 80px;
+  font-size: 40px;
   color: #87bfff;
   animation-name: animatetop;
   animation-duration: 0.4s;

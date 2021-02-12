@@ -27,14 +27,14 @@ let playerTwo = localStorage.getItem('playerTwo')
 //STARTING GAME STATE
 let counter = 0
 let counterTwo = 0
-let timeLeft = 60
+let timeLeft = 30
 let guessLeft = 20
 let painting = false
 let gameActive = true
 let activePlayer = playerOne
 let playerOneScore = 0
 let playerTwoScore = 0
-player.innerText = playerOne
+player.innerText = `ok, ${playerOne}`
 const words = [
   'a cow',
   'a dog',
@@ -48,7 +48,48 @@ const words = [
   'a church',
   'a watch',
   'a phone',
-  'a banana'
+  'a banana',
+  'a mouse',
+  'corn',
+  'a sunflower',
+  'Earth',
+  'ramen',
+  'a lamp',
+  'pizza',
+  'a hat',
+  'happy',
+  'sad',
+  'angry',
+  'tape',
+  'a camera',
+  'shoe',
+  'an alien',
+  'a VHS tape',
+  'knife',
+  'a cat',
+  'a door',
+  'a ruler',
+  'James Bond',
+  'a crying baby',
+  'roller blades',
+  'a scarf',
+  'a cigarette',
+  'an octopus',
+  'an oyster',
+  'a rose',
+  'a sad clown',
+  'an open book',
+  'a cactus',
+  'the ocean',
+  'a mountain',
+  'a camel',
+  'a tent',
+  'a boot',
+  'a pig',
+  'boxing gloves',
+  'a lemon',
+  'a lime',
+  'a shovel'
 ]
 
 //FUNCTIONS
@@ -108,14 +149,10 @@ const stopTimer = () => {
   timer.innerHTML = ''
 }
 
-// const timers = () => {}
-
 const drawTimer = () => {
   if (gameActive === true) {
     if (counter < timeLeft) {
-      console.log('draw timer')
       counter++
-      console.log(counter)
       timer.innerHTML = formatTime(timeLeft - counter)
     } else if (counter >= timeLeft) {
       stopTimer()
@@ -137,9 +174,7 @@ const drawTimer = () => {
 
 const guessTimer = () => {
   if (gameActive === true) {
-    console.log('guess timer')
     counterTwo++
-    console.log(counterTwo)
     timer.innerText = formatTime(guessLeft - counterTwo)
     if (counterTwo >= guessLeft) {
       clearInterval(secondTimer)
@@ -149,9 +184,6 @@ const guessTimer = () => {
       } else {
         playerOneScore -= 10
       }
-      //stop timer is not clearing guess timer
-      console.log(stopTimer)
-      console.log('the timer should have stopped')
       ding.play()
       gameActive = false
       toggleModal()
@@ -215,6 +247,7 @@ const playGame = () => {
   counterTwo = 0
   colorContainer.style.opacity = 100
   getWord()
+  clearInterval(secondTimer)
   stopTimer()
   gameTimer = setInterval(drawTimer, 1000)
 }
